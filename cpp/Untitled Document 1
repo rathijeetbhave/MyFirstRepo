@@ -1,0 +1,7 @@
+#include<iostream>
+#include<algorithm>
+using namespace std;
+//int find_min_dist(int*,int,int,int);
+int main()
+{
+	int arr[2][2]=
