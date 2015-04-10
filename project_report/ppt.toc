@@ -1,0 +1,4 @@
+\beamer@endinputifotherversion {3.24pt}
+\beamer@sectionintoc {1}{Hungarian algorithm}{11}{0}{1}
+\beamer@sectionintoc {2}{Hopcroft Karp Algorithm}{20}{0}{2}
+\beamer@sectionintoc {3}{Gale Shapely Algorithm}{35}{0}{3}

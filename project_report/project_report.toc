@@ -1,0 +1,28 @@
+\contentsline {chapter}{\numberline {1}Introduction}{3}
+\contentsline {subsection}{\numberline {1.0.1}Problems encountered}{3}
+\contentsline {subsubsection}{Student to college allocations }{3}
+\contentsline {subsubsection}{TA's to course allocations}{3}
+\contentsline {subsubsection}{Invigilation duty allocation}{4}
+\contentsline {chapter}{\numberline {2}Preliminaries}{5}
+\contentsline {chapter}{\numberline {3}Problem Description}{6}
+\contentsline {section}{\numberline {3.1}List of algorithms}{6}
+\contentsline {subsubsection}{Gale-Shapely algorithm}{6}
+\contentsline {subsubsection}{Hungarian algorithm}{7}
+\contentsline {subsubsection}{Hopcroft Karp algorithm}{7}
+\contentsline {chapter}{\numberline {4}Hungarian Algorithm}{8}
+\contentsline {section}{\numberline {4.1}Labellings \& Equality Graphs}{8}
+\contentsline {section}{\numberline {4.2}Pseudo-code for algorithm}{9}
+\contentsline {section}{\numberline {4.3}Improving Labellings}{9}
+\contentsline {section}{\numberline {4.4}The Hungarian Method}{10}
+\contentsline {section}{\numberline {4.5}Complexity analysis}{10}
+\contentsline {chapter}{\numberline {5}Hopcroft Karp Algorithm}{11}
+\contentsline {section}{\numberline {5.1}Pseudo code}{11}
+\contentsline {section}{\numberline {5.2}Proof of Correctness}{11}
+\contentsline {section}{\numberline {5.3}Method for finding augmenting paths}{13}
+\contentsline {section}{\numberline {5.4}The Hopcroft Karp method}{14}
+\contentsline {section}{\numberline {5.5}Complexity analysis}{15}
+\contentsline {chapter}{\numberline {6}Gale Shapely algorithm}{17}
+\contentsline {section}{\numberline {6.1}Pseudo code}{18}
+\contentsline {section}{\numberline {6.2}GS lists}{18}
+\contentsline {subsection}{\numberline {6.2.1}Modified algorithm}{18}
+\contentsline {section}{\numberline {6.3}Complexity analysis}{19}
