@@ -1,0 +1,21 @@
+Config { font = "xft:Bitstream Vera Sans Mono:size=9:bold:antialias=true" 
+	, bgColor = "#000000" 
+	, fgColor = "grey" 
+	, position = TopW L 100  
+	, commands = [ Run Cpu ["-L","3","-H","50","--normal","green","--high","red"] 10 
+		    , Run Network "eth0" ["-L","0","-H","70","--normal","green","--high","red"] 10 
+		    , Run Memory ["-t","Mem: <usedratio>%"] 10 
+		    , Run Com "/home/rathi/shell/cputemp.sh" [] "cpuTemp" 10 
+		    , Run Date "%a %b %_d %l:%M" "date" 10 
+		    , Run Com "/home/rathi/shell/volume.sh" [] "volume" 10 
+		    , Run BatteryP ["BAT0","BAT1","BAT2"]
+		    ["-t", "<acstatus>"
+		    , "-L", "10", "-H", "80"
+		    , "-l", "red", "-h", "green"
+		    , "--", "-O", "Charging", "-o", "Battery: <left>%"] 10 
+		    ,Run StdinReader 
+		    ] 
+	, sepChar = "%" 
+	, alignSep = "}{" 
+	, template = " %StdinReader%}{ <fc=grey>%cpu% </fc> <fc=red>%cpuTemp%</fc>°C<fc=grey> ~ %memory% ~ %eth0%</fc> ~ <fc=#ee9a00>%date%</fc> ~ %battery% " 
+	} 
