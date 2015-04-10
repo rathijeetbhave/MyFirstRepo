@@ -1,0 +1,15 @@
+import numpy
+def findmissingvalue(engagged):
+	b=1
+	#engagged=numpy.matrix([[1],[2],[2],[4]])
+	missingvalue=numpy.random.rand(4,1)
+	for i in range(4):
+		f=b in engagged
+		if f==False:
+			missingvalue[i]=i+1
+			b=b+1
+		else:
+			missingvalue[i]=0
+			b=b+1
+	print missingvalue	
+	

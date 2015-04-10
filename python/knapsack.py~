@@ -1,0 +1,21 @@
+def knapsack():
+	a=[2,3,4,2,3,4,2,3,4]
+	colours=3
+	used=[]
+	combine(a,colours,used)
+	
+def combine(a,colours,used):
+		if colours==1:
+			for i in a:
+				used.append(i)
+				print used
+		else:
+			#available=len(a)
+			used.append(a[0])
+	    	combine(a[1:],colours-1,used)
+
+def main():
+    knapsack()
+    
+if __name__ == '__main__':
+    main()

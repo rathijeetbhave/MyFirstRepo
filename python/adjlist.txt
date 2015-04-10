@@ -1,0 +1,6 @@
+u1 v1 v6
+u2 v2  
+u3 v3 v2 v5
+u4 v4 v3
+u5 v5 v4
+u6 v6

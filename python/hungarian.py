@@ -1,0 +1,310 @@
+import numpy
+import copy
+import sys
+#a=numpy.array([[11,7,10,17,10],[13,21,7,11,13],[13,13,15,13,14],[18,10,13,16,14],[12,8,16,19,10]])
+#a=numpy.array([[10,0],[100,1]])
+#a=numpy.array([[100,100,10000,10000],[100,100,10000,10000],[200,200,200,200],[200,200,200,200]])
+a=numpy.array([[17,22,19,20,24],[14,23,15,16,24],[18,21,17,17,24],[19,24,21,22,24],[16,22,17,17,24]])
+#a=numpy.array([[80,40,50,46],[40,70,20,25],[30,10,20,30],[35,20,25,30]])
+#a=numpy.array([[28,0,9,0],[5,51,0,0],[4,0,9,14],[0,1,5,5]])
+#a=numpy.array([[0,0,0,6,0],[5,17,0,3,6],[0,4,3,0,1],[4,0,0,2,1],[1,1,6,8,0]])
+#a=numpy.array([[3,0,2,9,1],[6,15,0,4,5],[0,1,2,0,0],[7,0,2,5,2],[3,0,7,10,0]])
+#a=numpy.array([[2,0,1,8,0],[6,16,0,4,5],[0,2,2,0,0],[6,0,1,4,1],[3,1,7,10,0]])
+#a=numpy.array([[1,0,0,7,0],[6,17,0,4,6],[0,3,2,0,1],[5,0,0,3,1],[2,1,6,9,0]])
+#a=numpy.array([[4,3,2,1],[4,3,2,1],[4,3,2,1],[4,3,2,1]])
+n,col=numpy.shape(a)
+
+
+#tickedcol=numpy.random.rand(n,1)
+
+#assgncol=numpy.random.rand(4,1)
+#assigned=numpy.random.rand(n,2)
+def hungarian():
+	zeros=0
+	lines=0
+	count=0	
+	for i in range(n):
+		a[i]=a[i]-a[i].min()
+	for i in range(n):
+		if any(a[:,i]!=0):
+			a[:,i]=a[:,i]-a[:,i].min()
+	#print a
+	k=0
+	while lines != n:	
+	#for s in range(2):
+		assigned=numpy.random.rand(n,2)
+		czeroscol=numpy.random.rand(3*n,1)
+		czerosrow=numpy.random.rand(3*n,1)
+		ticked=numpy.random.rand(n,2)
+		lined=numpy.random.rand(n,2)
+		lines=0
+		zeros=0
+		k=0
+		print a,len(a[a==0])
+		while zeros <= len(a[a==0]) :			# assignments starts here
+		#for i in range(2):
+		#while 1:
+			if zeros>=len(a[a==0]):
+				break 	
+			for i in range(n):
+				z=a[i][a[i]==0]	
+				#print len(z)
+				if len(z) == 1:
+					c=numpy.where(a[i]==0)	
+					c=c[0][0]
+					#print c
+					if c not in assigned[:,1]:
+						assigned[:,0][i]=i
+						assigned[:,1][i]=c
+						print assigned	
+						zeros=zeros+1
+						if zeros>=len(a[a==0]):
+							break
+						print zeros
+						for j in range(n):
+							if a[j][c] == 0:
+								if j!=i :
+									czerosrow[k]=j	
+									czeroscol[k]=c
+									k=k+1
+									zeros=zeros+1
+									if zeros>=len(a[a==0]):
+										break
+									#print czerosrow,'\n',czeroscol
+									print zeros
+					print czerosrow,czeroscol
+				else:
+					column=numpy.random.rand(n,1)
+					count=0
+					z=0
+					c=numpy.where(a[i]==0)[0]
+					print c
+					for j in range(len(c)):
+						if i in assigned[:,0]: 
+							#count=count+1 
+							break
+						for s in range(3*n):
+							if i == czerosrow[s]:
+								if c[j] == czeroscol[s]:
+									count=count+1
+									column[z]=c[j]
+									z=z+1
+								
+						#else:
+						#	row=i
+						#	col=c[j]
+					#print row,col
+					for j in range(len(c)):
+						if len(c)-count == 1 and c[j] not in column:
+							assigned[:,0][i]=i
+							assigned[:,1][i]=c[j]
+							print assigned	
+							zeros=zeros+1
+							print zeros
+							if zeros==len(a[a==0]):
+								break
+							#print zeros
+							for q in range(n):
+								if a[q,c[j]] == 0:
+									if q!=i :
+										czerosrow[k]=q	
+										czeroscol[k]=c[j]
+										k=k+1
+										zeros=zeros+1
+										print zeros
+										if zeros>=len(a[a==0]):
+											break
+									#print czerosrow,'\n',czeroscol
+			if zeros>=len(a[a==0]):
+				break
+																													
+			for i in range(n):
+				z=a[:,i][a[:,i]==0]	
+				#print z
+				if len(z) == 1:
+					r=numpy.where(a[:,i]==0)[0][0]
+					#print assigned
+					print r
+					if r not in assigned[:,0]:
+						assigned[:,0][r]=r
+						assigned[:,1][r]=i
+						print assigned	
+						zeros=zeros+1
+						if zeros>=len(a[a==0]):
+							break
+						for j in range(n):
+							if a[r][j] == 0:
+								if j!=i :
+									czerosrow[k]=r	
+									czeroscol[k]=j
+									k=k+1
+									zeros=zeros+1
+									print zeros
+									if zeros>=len(a[a==0]):
+										break
+									#print czerosrow,'\n',czeroscol
+				else:
+					count=0
+					z=0
+					row=numpy.random.rand(n,1)
+					r=numpy.where(a[:,i]==0)[0]
+					print r,count
+					for j in range(len(r)):
+						if i in assigned[:,1]: 
+							#count=count+1
+							break
+						for s in range(3*n):
+							if i == czeroscol[s]:
+								if r[j] == czerosrow[s]:
+									count=count+1
+									row[z]=r[j]
+									z=z+1
+								
+					print zeros
+					#print row,col
+					for j in range(len(r)):
+						if len(r)-count == 1 and r[j] not in row:
+							assigned[:,0][r[j]]=r[j]
+							assigned[:,1][r[j]]=i
+							print assigned	
+							zeros=zeros+1
+							print zeros
+							if zeros>=len(a[a==0]):
+								break
+							#print zeros
+							for q in range(n):
+								if a[r[j],q] == 0:
+									if q!=i :
+										czerosrow[k]=r[j]	
+										czeroscol[k]=q
+										k=k+1
+										zeros=zeros+1
+										print zeros
+										if zeros>=len(a[a==0]):
+											break
+									#print czerosrow,'\n',czeroscol
+
+			'''for i in range(n):
+				z=a[i][a[i]==0]	
+				#print len(z)
+				if len(z) != 1:
+					c=numpy.where(a[:,i]==0)[0]
+					for j in len(c):
+						if c[j] not in assigned[:,1] and i not in assigned[:,0]:
+							for s in range(n+n/2):
+								if c[j] == czeroscol[s] and i == czerosrow[s]:
+									flag=flag+1
+							if flag==0:	
+							assigned[:,0][i]=i
+							assigned[:,1][i]=c
+							print assigned	
+							zeros=zeros+1
+						for j in range(n):
+							if a[j][c] == 0:
+								if j!=i :
+									czerosrow[k]=j	
+									czeroscol[k]=c
+									k=k+1
+									zeros=zeros+1
+			print czerosrow,czeroscol
+			for i in range(n):
+				z=a[:,i][a[:,i]==0]	
+				print z
+				if len(z) != 1:
+					flag=0
+					r=numpy.where(a[:,i]==0)
+					#print r[0][0]
+					for j in range(len(r)):
+						if r[0][j] in assigned[:,0] or i in assigned[:,1]:
+							for s in range(n+n/2):
+								if r[0][j] == czerosrow[s] and i == czeroscol[s]:
+									flag=flag+1
+							if flag != 0:
+								czerosrow[k]=r[0][j]
+								czeroscol[k]=i						
+								zeros=zeros+1						
+						else:
+							assigned[:,1][i]=i
+							assigned[:,0][i]=r[0][j]
+							k=k+1
+							zeros=zeros+1	
+							#print zeros
+
+						
+					flag=0
+					for j in range(len(c[0])):
+						
+							if r[0][j] not in assigned[:,0] and r[0][j] not in czerosrow:
+							assigned[:,0][r]=r[0][j]
+							assigned[:,1][r]=i
+							print assigned	
+							zeros=zeros+1'''
+				
+
+	
+		print assigned,'\n'#,czerosrow,'\n',czeroscol			# assignments end here
+
+	
+		for i in range(n):			# ticking starts here
+			if assigned[:,0][i]==i:
+				pass
+			else:
+				ticked[:,0][i]=i
+				for j in range(n):
+					if a[i,j]==0:
+						ticked[:,1][j]=j
+						for k in range(n):
+							if assigned[k,1]==j:
+								ticked[:,0][assigned[k,0]]=k	
+
+
+		print ticked				# ticking ends here
+
+		for i in range(n):			# lining starts here
+			if ticked[:,0][i]==i:
+				pass
+			else:
+				lined[:,0][i]=i
+				lines=lines+1
+		lined[:,1]=ticked[:,1]
+		for i in range(n):
+			if lined[:,1][i]==i:
+				lines=lines+1
+		print lined,lines				#lining ends here
+		if lines==n:
+			break
+		templined=copy.copy(lined)
+		b=a
+		for i in range(n):			# finding theta starts here
+			if templined[:,0][i] in range(n):
+				b=numpy.delete(b,(templined[:,0][i]),axis=0)
+				templined[:,0][templined[:,0]>i]=templined[:,0][templined[:,0]>i]-1
+				#print templined
+			if templined[:,1][i] in range(n):
+				b=numpy.delete(b,(templined[:,1][i]),axis=1)
+				templined[:,1][templined[:,1]>i]=templined[:,1][templined[:,1]>i]-1
+				#print b
+		print b	
+
+		theta=b.min()				# finding theta ends here
+
+		for i in range(n):			# matrix modification starts here
+			for j in range(n):
+				if lined[:,1][i]==i and lined[:,0][j]==j:
+					a[j,i]=a[j,i]+theta
+		for i in range(n):
+			for j in range(n):
+				if i in lined[:,0] or j in lined[:,1]:
+					pass
+				else:
+					a[i,j]=a[i,j]-theta
+		print a					# matrix modification ends here
+	
+	
+	print '\n','\n',assigned
+
+def main():
+	hungarian()
+
+if __name__ == '__main__':
+	main()

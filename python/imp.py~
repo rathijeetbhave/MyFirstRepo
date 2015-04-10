@@ -1,0 +1,20 @@
+import sys
+import numpy
+def equal(a,x): 
+	#x=3
+	pos=numpy.random.rand(3,1)
+	print a
+	for m in range(3):
+		if a[m]==0: 
+			pos[m]=0			
+		elif a[m]==x:
+			pos[m]=m+1			
+		else:
+			pos[m]=0
+	print pos
+
+def findmin(col):
+	#col=numpy.matrix([[1],[2],[3],[0]])
+	minimum=col[col>0].min() 
+	print minimum
+

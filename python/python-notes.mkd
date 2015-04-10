@@ -1,0 +1,119 @@
+#Python notes:
+
+    
+    * It is an interpreted language and not a compiled one.
+    * We do not have to worry about memory allocation and freeing.
+    * It has build in data types so it gets out of your way and lets you focus on th* problem.
+    * Iti s not a forced object oriented language like java.
+    * Python is slow in some cases than c++ which is the outcome of simplicity of coding in python.
+    * In python square brackets in help denotes optional arguments.
+    * ? gives more info about the command.
+    * str,list,tuple are called sequences.
+    * len = 1
+    * a=[1,2,3,4]
+    * len(a) will give error.
+    * to come out of this we use del len.
+    * Keywords cannot be assigned value but build in finctions can.
+    * and = 1 will not work.
+    * There is no difference between single char and string unlike in c++.
+    * Strings are immutable means it cannot be changed.
+    
+    
+#Day 2:
+    
+    * slicing syntax q[start : end : jump]
+    * In range function stop value is not included.
+    * sorted() modifies the existing list and returns a new list.
+    * a.sort() does not return a new list.It only modifies existi one.
+    * read list functions.
+    * raw_input always returns a string.
+    * if we do avg? the doc string will show up. So it serves as documentation.
+    * We cant put default arguments first.
+    * order does not matter in keyword arguments.
+    
+    
+
+#Day 3:
+    
+    * Read assert in python.
+    * a=[1,2,3]
+    * t=(a,1,2,3)
+    * a.append(100) will show t as:
+    * t=([1,2,3,100],1,2,3)
+    * so changing a will change t as well.
+    * but if we make a=24 then t is not changed.
+    
+    
+
+#Day 4:
+    
+    * When we import a file it runs all statements in it.
+    * python does not import modules again and again. It imports once and stores it somewhere.
+    * __name__ gives module name in ipython and gives __main__ when run from terminal using python interpretor.
+    
+    
+
+#Day 5:
+    
+    * Dir(string or any object) will give all optionalerations that can be performed on it.
+    * finally block will always be executed even if there is a return.
+    
+    
+
+#Test Driven Development:
+    
+    * ZZ
+    
+
+#Introuction to standard python library:
+    
+    * capwords is not available in strings unlike capitalize.
+    * we cannot call capwords like str.capitalize
+    * read about phonecode library.
+    * read decimal.decimal conversion
+    * if digits of precision dont match then the numbers cannot be added.
+    * so 1/cd +1.0 will give eror.bcoz prec digits dont match.
+    * if lower precision is mixed with higher precision then result is obtained in higher precision.
+    * print something,  will print numbers sideby side..and not in new line.
+    * LC 302 25 feb 5.30 to 7.30 midsem.
+    
+
+#Day 2:
+    
+    * we need to normalise the path in os.path.join so that nothing tricky happens.
+    * glob does not recurse .. it only goes ine level down.
+    * sys.getrefcount is always one more than actual count
+    * refcount(10) or any const number is a big number as all refrences that os has created is also counted.
+    * getsizeof() does not add up the size of its attributes.. It only returns the size of base object.
+    
+    
+
+#One class miss:
+    * pass    
+
+#Day 4: Latex:
+    
+    * % is command in latex.
+    * /! puts a negative space in tex.
+    
+
+#Latex Day 2:
+
+    * Verbatian `verb*~(--------some text--------)~`.
+	* Some text is not compiled. It is displayed as it is.
+    * \newcommand {\TY}{T^{Y{S^3}}}.
+    * To pass arguments to new command
+	\newcommand{\deriv}[2]{\trac{d#1}{d#2}}
+	Diff x w.r.t t by $\deriv{x}{t}$
+    * \footnote puts a note in the bottom of the page.
+    * \cite[Page with refrence]{ref}
+    * item[i] -------------
+      item[ii] -----------
+      will print what you write as bullets.
+      wont check if its increasing or not.
+    * Read modifying .cls files, \setcounter.
+    * Section*{} will not number section.
+    * Use $Textinput/ to store header commands which are common to multiple files.
+	It is a bash variable.
+
+

@@ -1,0 +1,21 @@
+import sys
+import os
+def rename(*filename):
+	a=sys.argv[1:]
+	for i in range(len(a[0])):
+		if(ord(a[0][i])==32):
+			print i
+			break
+	j='-'.join([a[0][0:i],a[0][i+1:]])
+	c=tuple(j)
+	for filename in os.listdir("."):
+		if filename.startswith(c):
+			os.rename(filename,j)
+	
+	
+
+def main():
+	rename(sys.argv)
+
+if __name__ == '__main__':
+	main()

@@ -1,0 +1,39 @@
+import numpy
+
+def name():
+
+	a=numpy.loadtxt('name.csv',
+					delimiter=",",
+					unpack=True,
+					dtype='str')
+	#print a[0][10]
+	#print range(len(a)),range(len(a[0]))
+	for j in range(len(a)):
+		for i in range(len(a[j])):
+			#print a[j][i],len(a[j]),a[j][0]
+			#,ord(a[j][i])
+			if(ord(a[j][i])==32):
+				a[j]=a[j][0].upper() + a[j][1:i] + ' ' + a[j][i+1].upper() + a[j][i+2:]
+				 #+ a[j][0:i-1] + a[j][i].upper() + a[j][i+1:]
+				saveFile=open('capital.csv','a')
+				saveFile.write(a[j] + '\n')
+				saveFile.close()
+				print a[j]
+	#print a
+			
+	
+	'''for i in range(len(a)):
+		a[i]=a[i][0].upper() + a[i][1:] 
+		#print a[0,i]
+		#b[i]=a[0,i]+','+a[1,i]
+		saveFile=open('capital.csv','a')
+		#saveFile.write(a[i]+','+b[i] + '\n')
+		saveFile.close()	
+	#print a'''
+
+
+def main():
+	name()
+
+if __name__ == '__main__':
+	main()
