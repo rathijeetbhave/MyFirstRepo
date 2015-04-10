@@ -1,128 +1,72 @@
-def Range(a,size):
-    if (round(min(a)) ==0 and round(max(a))==0):
-        a_new=[]
-        for i in range(len(a)):
-            a_new.append(int(round(a[i])))
-        return a_new
-    a_new=[]
-    a_max=max(a)
-    a_min=min(a)
-    if a_min <0:
-        a_range=a_max-a_min
-    else:
-        a_min=0
-        a_range=a_max
-    for i in range(len(a)):
-        k=(float(a[i]-a_min)*size/a_range)
-        a_new.append(int(round(k)))
-    #print a_new
-    return a_new
-def plot_list(x_new,y_new):
-    y_plot=sorted(y_new,reverse=True)
-    x_plot=[]
-    for k in range(len(y_plot)):
-        num=y_plot[k]
-        if (k>0 and num==y_plot[k-1]):
-            indx=y_new.index(num,indx+1)
-        else:
-            indx=y_new.index(num)
-        x_plot.append(x_new[indx])
-    i=0
-    while i<len(y_plot):
-        a=y_plot[i]
-        k=y_plot.count(a)
-        temp=x_plot[i:i+k-1]
-        x_plot[i:i+k-1]=sorted(temp)
-        i=i+k
-    #print x_plot,y_plot,sorted(x_plot)
-    return x_plot,y_plot
-def print_str(x_list,x_zero):
-    str=''
-    j=0
-    for i in range(len(x_list)):
-        while j <= x_list[i]:
-            if (j==x_zero and j!=x_list[i]):
-                str=str+'|'
-            elif j==x_list[i]:
-                str=str+'*'
-            else:
-                str=str+' '
-            j=j+1
-    str=str+'\n'
-    return str
+import numpy as np
+from math import *
+import sys
+import itertools
 
-def zeroaxes(x,y,Hor_size,Ver_size):
-    x_zero,y_zero=0,0
-    if round(min(x)) < 0 :
-        x_zero=int(round(-min(x)*Hor_size/(max(x)-min(x))))
-    if round(min(y)) < 0:
-        y_zero=int(round(-min(y)*Ver_size/(max(y)-min(y))))
-    return x_zero,y_zero
-def check(x,y):
-    try:
-        if len(x) !=len(y):
-            raise IndexError
-        for i in range(len(x)):
-            a=int(x[i])
-            b=int(y[i])
-    except (ValueError,IndexError),e:
-        if __name__=='__main__':
-            print "Eror in the input",e
-        return e
-    return 1
-def plot(x,y):
-    Hor_size=80
-    Ver_size=30
-    e=check(x,y)
-    if e!=1:
-        return e
-    x_zero,y_zero=zeroaxes(x,y,Hor_size,Ver_size)
-    x_new=Range(x,Hor_size)
-    y_new=Range(y,Ver_size)
-    x_plot,y_plot=plot_list(x_new,y_new)
-    Full_str=''
-    for i in range(Ver_size,-1,-1):
-        if i==y_zero:
-            str=''
-            for j in range(Hor_size+1):
-                if (j in x_plot and y_plot[x_plot.index(j)]==y_zero):
-                    str=str+'*'
-                else:
-                    str=str+'-'
-            Full_str=Full_str+str+'\n'
-        elif i in y_plot:
-            indx=y_plot.index(i)
-            y_count=y_plot.count(i)
-            xlist=[x_zero]
-            for j in range(y_count):
-                xlist.append(x_plot[indx+j])
-            xlist.sort()
-            str=''
-            for j in range(max(xlist)+1):
-                if (j in xlist and j !=x_zero):
-                    str=str+'*'
-                elif j==x_zero:
-                    str=str+'|'
-                else:
-                    str=str+' '
-            Full_str=Full_str+str+'\n'
-        else:
-            str=''
-            for j in range(x_zero):
-                str=str+' '
-            Full_str=Full_str+str+'|\n'
-    #print __name__
-    if __name__=='__builtin__':
-        print Full_str
-    else:
-        return Full_str
-if __name__=='__main__':
-    import math
+class canvas():
+    def __init__(self,size=None):
+        pass
+        #if size==None:
+            #self.size=(30,70)
+        #else:
+            #self.size=size
+        #canvas=self.make_canvas(self.rows,self.cols)
+        #canvas[4][3]='*'
+        #self.plot_canvas(canvas,sys.stdout)
+
+    def plot_canvas(self,canvas,output_file):
+        for line in canvas:
+            output_file.write(' '.join(line))
+            output_file.write('\n')
+
+    def make_canvas(self,size):
+        rows,cols=size
+        canvas=[]
+        for i in range(rows):
+            canvas.append(list(' ')*cols)
+        return canvas
+        
+class plot(canvas):
+    def __init__(self,x,y,size=(30,70)):
+        
+        #size=(10,10)
+        #x=[1,2,3,4,5]
+        #y=[2,4,6,8,10]
+        #x,y=[],[]
+        #for i in range(30):
+            #x.append(i)
+            #y.append(2*i)
+        self.x=x
+        self.y=y
+        #canvas.__init__(self,size)
+        my_canvas=plot.make_canvas(self,size)
+        xmin, xmax = min(x), max(x)
+        ymin, ymax = min(y), max(y)
+        len_x = float(xmax - xmin)
+        len_y = float(ymax - ymin)
+        for x_i,y_i in self.map_point(x,y,xmin,ymin,xmax,ymax,size,len_x,len_y):
+            #print x_i,y_i
+            my_canvas[size[0]-x_i-1][y_i]='*'
+        plot.plot_canvas(self,my_canvas,sys.stdout)
+
+    def map_point(self,x, y, xmin, ymin, xmax, ymax, size,len_x,len_y):
+        """Return a pair of indices corresponding to
+        the point x, y in the domain (xmin,...)
+        """
+        for x_a,y_a in itertools.izip(x,y):
+            xi = int(round((x_a - xmin)/len_x*(size[0]-1)))
+            yi = int(round((y_a - ymin)/len_y*(size[1]-1)))
+            yield xi, yi
+
+
+def main():
+    c=canvas()
     x=[]
-    y=[]
-    for i in range(51):
-        x.append(i)
-        y.append(math.sin(i*2*math.pi/50))
-    str=plot(x,y)
-    print str
-                
+    y=np.linspace(0,2*pi,50)
+    for num in y:
+        x.append(sin(num))
+    plot(x,y)
+
+if __name__=='__main__':
+    main()
+
